@@ -18,7 +18,7 @@ class ClientTest(unittest.TestCase):
         # Assert
         self.assertEqual(data_point, expected_data_point)
     
-    def test_getRatio(self):
+    def test_getRatio_normal_case(self):
         # Arrange
         price_a = 120.48
         price_b = 121.2
@@ -29,18 +29,29 @@ class ClientTest(unittest.TestCase):
         
         # Assert
         self.assertEqual(ratio, expected_ratio)
-    
+
     def test_getRatio_price_b_zero(self):
         # Arrange
         price_a = 120.48
         price_b = 0
-        expected_ratio = None  # Since dividing by zero is undefined, we expect None or you can define any behavior.
         
         # Act
         ratio = getRatio(price_a, price_b)
         
         # Assert
         self.assertIsNone(ratio)
+    
+    def test_getRatio_price_a_zero(self):
+        # Arrange
+        price_a = 0
+        price_b = 121.2
+        expected_ratio = 0
+        
+        # Act
+        ratio = getRatio(price_a, price_b)
+        
+        # Assert
+        self.assertEqual(ratio, expected_ratio)
 
 if __name__ == '__main__':
     unittest.main()
